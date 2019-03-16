@@ -17,10 +17,13 @@
             $scope.error = "Could not fetch the user";
         }
 
-        $http.get("https://api.github.com/users/robconery")
-            .then(onUserComplete, onError);
+        // function called by ng-click once form is submitted/clicked
+        $scope.search = function(username) {
+            $http.get("https://api.github.com/users/" + username)
+                .then(onUserComplete, onError);
+        };
 
-
+        // default search
         $scope.username = "angular";
         $scope.message = "GitHub Viewer";
 
