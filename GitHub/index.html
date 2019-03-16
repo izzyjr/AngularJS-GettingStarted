@@ -19,20 +19,21 @@
         <input type="submit" value="Search">
     </form>
 
-    <div>
+    <!-- ng-show directive allows show/hide based on parameter -->
+    <div ng-show="user">
         <h2>Name: {{user.name}}</h2>
         <img ng-src="{{user.avatar_url}}" title="{{user.name}}">
+
+        Order:
+        <select ng-model="repoSortOrder">
+            <option value="+name">Name</option>
+            <option value="-stargazers_count">Stars</option>
+            <option value="+language">Language</option>
+        </select>
     </div>
 
-    Order:
-    <select ng-model="repoSortOrder">
-        <option value="+name">Name</option>
-        <option value="-stargazers_count">Stars</option>
-        <option value="+language">Language</option>
-    </select>
-
     <!-- table looping through data using ng-repeat -->
-    <table>
+    <table ng-show="user">
         <thead>
             <tr>
                 <th>Name</th>
