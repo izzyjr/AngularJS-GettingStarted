@@ -21,11 +21,16 @@
             .then(onUserComplete, onError);
 
 
-        $scope.message = "Hello Angular";
+        $scope.username = "angular";
+        $scope.message = "GitHub Viewer";
 
     };
 
     // register controller in module
     app.controller("MainController", MainController);
+
+    // Minify
+    // app.controller("MainController", ["$scope", "$http", MainController]);
+
 
 }());
