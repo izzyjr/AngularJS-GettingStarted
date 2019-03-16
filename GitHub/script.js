@@ -10,7 +10,7 @@
         // processes promise
         var onUserComplete = function(response) {
             $scope.user = response.data;
-            // requesting promise data's properties
+            // requesting promise on user's properties
             $http.get($scope.user.repos_url)
                 .then(onRepos, onError);
         }
@@ -35,6 +35,8 @@
         // default search
         $scope.username = "angular";
         $scope.message = "GitHub Viewer";
+        // default orderBy parameter
+        $scope.repoSortOrder = "-stargazers_count";
 
     };
 
