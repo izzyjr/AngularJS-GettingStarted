@@ -10,11 +10,20 @@
         // processes promise
         var onUserComplete = function(response) {
             $scope.user = response.data;
+            // requesting promise data's properties
+            $http.get($scope.user.repos_url)
+                .then(onRepos, onError);
+        }
+
+        var onRepos = function(response) {
+
+            $scope.repos = response.data;
+
         }
 
         // handles error
         var onError = function(reason) {
-            $scope.error = "Could not fetch the user";
+            $scope.error = "Could not fetch the data";
         }
 
         // function called by ng-click once form is submitted/clicked
