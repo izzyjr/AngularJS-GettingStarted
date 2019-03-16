@@ -3,14 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <title>GitHub Viewer</title>
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular.js"></script>
+    <script data-require="angular.js@*" data-semver="1.2.20" src="https://code.angularjs.org/1.2.20/angular.js"></script>
+    
     <script src="script.js"></script>
 </head>
 <body ng-controller="MainController">
     <h1>{{ message }}</h1>
-    <h2>{{person.firstName}} {{person.lastName}}</h2>
+
+    {{ error }}
+
     <div>
-        <img ng-src="{{person.imgSource}}" title="{{person.firstName}} {{person.lastName}}">
+        Name: {{user.name}}
+    </div>
+    <div>
+        Location: {{user.location}}
+    </div>
+    <div>
+        <img ng-src="{{user.avatar_url}}" title="{{user.name}}">
     </div>
 
 </body>
