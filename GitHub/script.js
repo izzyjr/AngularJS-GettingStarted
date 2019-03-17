@@ -5,7 +5,7 @@
     var app = angular.module("githubViewer", []);
 
     // controller - MainController
-    var MainController = function($scope, $http) {
+    var MainController = function($scope, $http, $interval) {
 
         // processes promise
         var onUserComplete = function(response) {
@@ -26,25 +26,39 @@
             $scope.error = "Could not fetch the data";
         }
 
+        var decrementCountdown = function() {
+            $scope.countdown -= 1;
+            if($scope.countdown < 1) {
+                $scope.search($scope.username);
+            }
+
+        }
+
         // function called by ng-click once form is submitted/clicked
         $scope.search = function(username) {
             $http.get("https://api.github.com/users/" + username)
                 .then(onUserComplete, onError);
         };
 
+        var startCountdown = function() {
+            $interval(decrementCountdown, 1000, $scope.countdown);
+        }
+
         // default search
         $scope.username = "angular";
         $scope.message = "GitHub Viewer";
         // default orderBy parameter
         $scope.repoSortOrder = "-stargazers_count";
+        $scope.countdown = 5;
+        startCountdown();
 
     };
 
     // register controller in module
     app.controller("MainController", MainController);
 
-    // Minify
-    // app.controller("MainController", ["$scope", "$http", MainController]);
+    // Minify Syntax
+    // app.controller("MainController", ["$scope", "$http", "$interval", MainController]);
 
 
 }());
