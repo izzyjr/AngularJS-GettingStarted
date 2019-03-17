@@ -5,19 +5,17 @@
     var app = angular.module("githubViewer", []);
 
     // controller - MainController
-    var MainController = function($scope, $http, $interval,
+    var MainController = function($scope, github, $interval,
                                   $log, $anchorScroll, $location) {
 
         // processes promise
-        var onUserComplete = function(response) {
-            $scope.user = response.data;
-            // requesting promise on user's properties
-            $http.get($scope.user.repos_url)
-                .then(onRepos, onError);
+        var onUserComplete = function(data) {
+            $scope.user = data;
+            github.getRepos($scope.user).then(onRepos, onError);
         }
 
-        var onRepos = function(response) {
-            $scope.repos = response.data;
+        var onRepos = function(data) {
+            $scope.repos = data;
             $location.hash("userDetails");
             $anchorScroll();
 
@@ -44,8 +42,7 @@
         // function called by ng-click once form is submitted/clicked
         $scope.search = function(username) {
             $log.info("Searching for..." + username);
-            $http.get("https://api.github.com/users/" + username)
-                .then(onUserComplete, onError);
+            github.getUer(username).then(onUserComplete, onError);
             if(countdownInterval) {
                 $interval.cancel(countdownInterval);
                 $scope.countdown = null;
