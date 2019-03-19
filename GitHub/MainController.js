@@ -2,29 +2,10 @@
 (function() {
 
     // creating module
-    var app = angular.module("githubViewer", []);
+    var app = angular.module("githubViewer");
 
     // controller - MainController
-    var MainController = function($scope, github, $interval,
-                                  $log, $anchorScroll, $location) {
-
-        // processes promise
-        var onUserComplete = function(data) {
-            $scope.user = data;
-            github.getRepos($scope.user).then(onRepos, onError);
-        }
-
-        var onRepos = function(data) {
-            $scope.repos = data;
-            $location.hash("userDetails");
-            $anchorScroll();
-
-        }
-
-        // handles error
-        var onError = function(reason) {
-            $scope.error = "Could not fetch the data";
-        }
+    var MainController = function($scope, $interval, $location) {
 
         var decrementCountdown = function() {
             $scope.countdown -= 1;
@@ -41,19 +22,15 @@
 
         // function called by ng-click once form is submitted/clicked
         $scope.search = function(username) {
-            $log.info("Searching for..." + username);
-            github.getUer(username).then(onUserComplete, onError);
             if(countdownInterval) {
                 $interval.cancel(countdownInterval);
                 $scope.countdown = null;
             }
+            //
         };
 
         // default search
         $scope.username = "angular";
-        $scope.message = "GitHub Viewer";
-        // default orderBy parameter
-        $scope.repoSortOrder = "-stargazers_count";
         $scope.countdown = 5;
         startCountdown();
 

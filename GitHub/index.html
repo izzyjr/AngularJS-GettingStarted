@@ -4,28 +4,16 @@
     <meta charset="UTF-8">
     <title>GitHub Viewer</title>
     <script data-require="angular.js@*" data-semver="1.2.20" src="https://code.angularjs.org/1.2.20/angular.js"></script>
-    
-    <script src="script.js"></script>
+    <script data-require="angular-route@1.4.6" data-semver="1.2.14" src="https://code.angularjs.org/1.2.14/angular-route.js"></script>
+
+    <script src="app.js"></script>
+    <script src="MainController.js"></script>
     <script src="github.js"></script>
-</head>
-<body ng-controller="MainController">
-    <h1>{{ message }}</h1>
+    </head>
 
-    <div>{{ error }}</div>
+    <body>
+        <H1>Github Viewer</H1>
+        <div ng-view></div>
+    </body>
 
-
-    {{ countdown }}
-
-    <!-- ng-submit calls function defined on model -->
-    <form name="searchUser" ng-submit="search(username)">
-        <!-- ng-model sends data to model and vice versa -->
-        <input type="search" required placeholder="Username to find" ng-model="username">
-        <input type="submit" value="Search">
-    </form>
-
-    <!-- ng-include - html from another file -->
-    <!-- ng-show directive allows show/hide based on parameter -->
-    <div ng-include="'userDetails.html'" ng-show="user"></div>
-
-</body>
 </html>
