@@ -1,6 +1,7 @@
 <!-- ng-show directive allows show/hide based on parameter -->
-<div id="userDetails">
+<div>
     <h2>Name: {{user.name}}</h2>
+    {{ error }}
     <img ng-src="{{user.avatar_url}}" title="{{user.name}}">
 
     Order:
@@ -29,3 +30,4 @@
     </tr>
     </tbody>
 </table>
+<a href="#/main">Back to search</a>

@@ -1,12 +1,11 @@
 // Immediately Invoked Function Expression (IIFE)
 (function() {
 
-    // creating module
+    // reference to module
     var app = angular.module("githubViewer");
 
-    // controller - MainController
-    var MainController = function($scope, github, $interval,
-                                  $log, $anchorScroll, $location) {
+    // controller - UserController
+    var UserController = function($scope, github, $routeParams) {
 
         // processes promise
         var onUserComplete = function(data) {
@@ -16,9 +15,6 @@
 
         var onRepos = function(data) {
             $scope.repos = data;
-            $location.hash("userDetails");
-            $anchorScroll();
-
         }
 
         // handles error
@@ -26,41 +22,15 @@
             $scope.error = "Could not fetch the data";
         }
 
-        var decrementCountdown = function() {
-            $scope.countdown -= 1;
-            if($scope.countdown < 1) {
-                $scope.search($scope.username);
-            }
-
-        }
-
-        var countdownInterval = null;
-        var startCountdown = function() {
-            countdownInterval = $interval(decrementCountdown, 1000, $scope.countdown);
-        }
-
-        // function called by ng-click once form is submitted/clicked
-        $scope.search = function(username) {
-            $log.info("Searching for..." + username);
-            github.getUer(username).then(onUserComplete, onError);
-            if(countdownInterval) {
-                $interval.cancel(countdownInterval);
-                $scope.countdown = null;
-            }
-        };
-
-        // default search
-        $scope.username = "angular";
-        $scope.message = "GitHub Viewer";
-        // default orderBy parameter
+        // URL search
+        $scope.username = $routeParams.username;
         $scope.repoSortOrder = "-stargazers_count";
-        $scope.countdown = 5;
-        startCountdown();
+        github.getUer($scope.username).then(onUserComplete, onError);
 
     };
 
     // register controller in module
-    app.controller("MainController", MainController);
+    app.controller("UserController", UserController);
 
     // Minify Syntax
     // app.controller("MainController", ["$scope", "$http", "$interval", MainController]);

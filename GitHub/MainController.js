@@ -1,7 +1,7 @@
 // Immediately Invoked Function Expression (IIFE)
 (function() {
 
-    // creating module
+    // reference to module
     var app = angular.module("githubViewer");
 
     // controller - MainController
@@ -20,13 +20,12 @@
             countdownInterval = $interval(decrementCountdown, 1000, $scope.countdown);
         }
 
-        // function called by ng-click once form is submitted/clicked
         $scope.search = function(username) {
             if(countdownInterval) {
                 $interval.cancel(countdownInterval);
                 $scope.countdown = null;
             }
-            //
+            $location.path("/user/" + username);
         };
 
         // default search
